@@ -2,83 +2,52 @@
 
 ## Overview
 
-This project analyses ABB Ltd's recommended all-cash acquisition of Rotork plc and models the transaction from an investment-banking perspective.
+Independent transaction analysis of ABB's recommended all-cash acquisition of Rotork plc.
 
-I built a transaction model covering:
+The model covers:
 
-- offer mechanics and acquisition premium;
-- equity purchase price and enterprise value;
-- transaction multiples;
-- sources and uses of funds;
-- acquisition financing;
-- implied EBITDA synergies;
-- EPS accretion / dilution; and
-- sensitivity to synergy realisation and borrowing costs.
+- offer mechanics and acquisition premium
+- equity purchase price and enterprise value
+- transaction multiples
+- sources & uses and acquisition financing
+- implied EBITDA synergies
+- EPS accretion / dilution
+- synergy and borrowing-cost sensitivities
 
-The objective was to understand how a public M&A transaction moves from announced deal terms to purchase price, financing requirements and pro forma earnings impact.
+The objective was to model how announced deal terms translate into purchase price, financing requirements and pro forma shareholder impact.
 
 ---
 
 ## Transaction Overview
-
-ABB announced a recommended all-cash offer for Rotork on 16 July 2026.
 
 | Metric | Value |
 |---|---:|
 | Cash consideration | 503p/share |
 | Permitted dividend | Up to 3p/share |
 | Total potential shareholder value | 506p/share |
-| Unaffected Rotork share price | 290.8p |
 | Premium to unaffected price | 73.0% |
-| 3-month VWAP | 309.2p |
 | Premium to 3-month VWAP | 62.7% |
-| Fully diluted Rotork shares | 822.3m |
 | Implied equity purchase price | $5.57bn |
-| Disclosed implied enterprise value | $5.50bn |
+| Implied enterprise value | $5.50bn |
 | EV / 2025A Sales | 5.25x |
 | EV / 2025A Adjusted EBITDA | 19.5x |
 | Expected completion | H1 2027 |
 
-As of the model date, shareholder and Court meetings had approved the transaction, while Court sanction and remaining closing conditions were still outstanding.
+---
+
+## Purchase Price & Enterprise Value
+
+I translated the announced 503p/share offer into an implied equity purchase price using Rotork's fully diluted share count.
+
+`Equity purchase price = Offer price × Fully diluted shares`
+
+This gives approximately **£4.14bn**, or **$5.57bn** at the transaction-date GBP/USD exchange rate.
+
+I then bridged equity value to enterprise value using cash, debt, leases and pension adjustments, producing approximately **$5.50bn of enterprise value**, consistent with the disclosed transaction value.
 
 ---
 
-## 1. Purchase Price & Enterprise Value
-
-I first translated the announced offer terms into an implied equity purchase price.
-
-The model uses:
-
-$$
-\text{Equity Purchase Price}
-=
-\text{Offer Price per Share}
-\times
-\text{Fully Diluted Shares}
-$$
-
-Using 503p per share and approximately 822.3 million diluted shares gives an equity purchase price of approximately **£4.14bn**, or **$5.57bn** at the transaction-date GBP/USD exchange rate.
-
-I then bridge equity value to enterprise value by adjusting for Rotork's cash, debt, lease liabilities and pension deficit.
-
-The resulting model enterprise value is consistent with the approximately **$5.50bn disclosed transaction EV**.
-
----
-
-## 2. Transaction Multiples
-
-Rotork's 2025 adjusted financials imply acquisition multiples of approximately:
-
-- **5.25x EV / Sales**
-- **19.5x EV / Adjusted EBITDA**
-
-These multiples highlight the relatively high entry valuation paid by ABB and provide the starting point for analysing the economic importance of potential synergies.
-
----
-
-## 3. Financing & Sources and Uses
-
-I constructed a sources-and-uses schedule to determine how ABB could fund the acquisition.
+## Financing & Sources and Uses
 
 ### Uses
 
@@ -98,62 +67,25 @@ I constructed a sources-and-uses schedule to determine how ABB could fund the ac
 | Incremental debt / facilities | 359 |
 | **Total Sources** | **5,659** |
 
-The model therefore requires approximately **$359m of incremental borrowing** after applying the expected Robotics disposal proceeds and $500m of ABB cash.
+The transaction requires approximately **$359m of incremental borrowing** after applying the Robotics disposal proceeds and $500m of ABB cash.
 
-The financing schedule also models:
+Base financing assumptions include:
 
-- a **4.5% base borrowing rate** on incremental debt;
-- a **3.5% foregone yield** on ABB cash used; and
-- approximately **$24.9m of annual after-tax financing drag**.
+- **4.5%** incremental borrowing rate
+- **3.5%** foregone yield on cash used
+- approximately **$24.9m** annual after-tax financing drag
 
 Sources and uses reconcile to zero.
 
-The simplified financing drag is:
-
-$$
-\text{After-Tax Financing Drag}
-=
-\left(
-\text{Incremental Debt}
-\times
-\text{Borrowing Rate}
-+
-\text{Cash Used}
-\times
-\text{Foregone Yield}
-\right)
-\times
-(1-\text{Tax Rate})
-$$
-
 ---
 
-## 4. Implied Synergy Analysis
+## Implied Synergy Analysis
 
-ABB described the transaction using a post-synergy EV / EBITDA multiple in the "mid-teens" but did not provide a specific EBITDA synergy target in the transaction announcement used for this model.
+ABB described the transaction using a post-synergy EV / EBITDA multiple in the **mid-teens**, but did not provide a specific EBITDA synergy target in the transaction materials used for the model.
 
-I therefore reverse-engineered the level of EBITDA synergies implied by different interpretations of a mid-teens post-synergy multiple.
+I therefore reverse-engineered the synergy level implied by different post-synergy multiples.
 
-The post-synergy EBITDA implied by a given transaction multiple is:
-
-$$
-\text{Post-Synergy EBITDA}
-=
-\frac{\text{Transaction EV}}
-{\text{Post-Synergy EV / EBITDA}}
-$$
-
-Implied EBITDA synergies are then calculated as:
-
-$$
-\text{Implied EBITDA Synergy}
-=
-\text{Post-Synergy EBITDA}
--
-\text{Standalone Rotork EBITDA}
-$$
-
-This produces:
+`Implied synergy = Transaction EV / Post-synergy multiple − Standalone EBITDA`
 
 | Post-Synergy EV / EBITDA | Implied EBITDA Synergy |
 |---:|---:|
@@ -161,180 +93,133 @@ This produces:
 | **15.0x** | **$84m** |
 | 16.0x | $61m |
 
-I use approximately **$84m** as the base implied EBITDA synergy case.
+The base case uses approximately **$84m of implied EBITDA synergies**.
 
-These values are an analyst interpretation of ABB's transaction language rather than company synergy guidance.
+These are analyst estimates inferred from ABB's transaction language rather than company synergy guidance.
 
 ---
 
-## 5. EPS Accretion / Dilution
+## EPS Accretion / Dilution
 
-I built a pro forma EPS bridge combining ABB's standalone earnings, Rotork's earnings contribution, financing drag and potential synergies.
+I built a pro forma earnings bridge combining ABB's standalone earnings, Rotork's earnings contribution, financing drag and potential synergies.
 
-The simplified earnings bridge is:
+`Pro forma net income = ABB net income + Rotork net income + after-tax synergies − financing drag`
 
-$$
-\text{Pro Forma Net Income}
-=
-\text{ABB Standalone Net Income}
-+
-\text{Rotork Net Income}
-+
-\text{After-Tax Synergies}
--
-\text{After-Tax Financing Drag}
-$$
+`Pro forma EPS = Pro forma net income / ABB diluted shares`
 
-Pro forma EPS is then:
-
-$$
-\text{Pro Forma EPS}
-=
-\frac{\text{Pro Forma Net Income}}
-{\text{ABB Diluted Shares}}
-$$
-
-EPS accretion is calculated as:
-
-$$
-\text{EPS Accretion}
-=
-\frac{\text{Pro Forma EPS}}
-{\text{ABB Standalone EPS}}
--1
-$$
+`EPS accretion = Pro forma EPS / ABB standalone EPS − 1`
 
 ### FY27E Pro Forma / Run-Rate
 
-FY27E is shown on a **full-year pro forma / run-rate basis**, because the transaction is expected to complete during H1 2027 rather than being owned by ABB for the entire reported year.
+FY27E is presented on a **full-year pro forma / run-rate basis** because completion is expected during H1 2027.
 
-- ABB standalone EPS: **$2.95**
-- Pro forma EPS: **$3.02**
-- EPS accretion: **2.4%**
+| Metric | FY27E |
+|---|---:|
+| ABB standalone EPS | $2.95 |
+| Pro forma EPS | $3.02 |
+| **EPS accretion** | **2.4%** |
 
-The base model assumes no EBITDA synergies are realised during FY27E.
+No EBITDA synergies are assumed in the FY27E base case.
 
 ### FY28E
 
 FY28E represents the first full post-close year.
 
-- ABB standalone EPS: **$3.10**
-- Pro forma EPS before synergies: **$3.17**
-- Pro forma EPS after synergies: **$3.21**
-- EPS accretion before synergies: **2.4%**
-- EPS accretion after synergies: **3.6%**
+| Metric | FY28E |
+|---|---:|
+| ABB standalone EPS | $3.10 |
+| Pro forma EPS before synergies | $3.17 |
+| Pro forma EPS after synergies | $3.21 |
+| Accretion before synergies | 2.4% |
+| **Accretion after synergies** | **3.6%** |
 
-Importantly, the transaction is already **accretive before synergies** under the model assumptions, so no positive breakeven EBITDA synergy is required.
+The modeled transaction is **accretive before synergies**, meaning no positive breakeven EBITDA synergy is required.
 
 ---
 
-## 6. Sensitivity Analysis
+## Sensitivity Analysis
 
-I tested FY28E EPS accretion across different:
+FY28E EPS accretion is tested across:
 
-- EBITDA synergy outcomes; and
-- incremental borrowing rates.
+- EBITDA synergies of **$0m–$130m**
+- borrowing rates of **3.5%–6.5%**
 
-The analysis considers synergy cases ranging from **$0m to $130m** and borrowing costs from **3.5% to 6.5%**.
+Across the tested range, modeled accretion remains positive at approximately **2.3%–4.2%**.
 
-Across the tested range, modeled FY28E EPS accretion remains positive, ranging from approximately **2.3% to 4.2%**.
-
-The base case of approximately **$84m of synergies and a 4.5% borrowing rate** produces approximately **3.6% FY28E EPS accretion**.
+The base case of **$84m synergies** and a **4.5% borrowing rate** produces approximately **3.6% FY28E EPS accretion**.
 
 ---
 
 ## Strategic Rationale
 
-The transaction has several potential strategic benefits for ABB:
+The transaction potentially:
 
-- expands ABB's Process Automation portfolio into flow control and electric actuation;
-- adds Rotork's installed base and aftermarket exposure across process industries;
-- creates potential cross-selling opportunities through ABB's global automation and electrification channels; and
-- adds Rotork as a separate division within ABB's Process Automation business.
+- expands ABB's Process Automation portfolio into flow control and electric actuation
+- adds Rotork's installed base and aftermarket exposure
+- creates cross-selling opportunities through ABB's global platform
+- strengthens ABB's exposure to process-industry automation
 
 ---
 
 ## Key Risks
 
-### Valuation
+**Valuation**  
+ABB is paying a **73% premium** to Rotork's unaffected share price and approximately **19.5x 2025A adjusted EBITDA**.
 
-ABB is paying a substantial acquisition premium, including approximately **73% to Rotork's unaffected share price** and approximately **19.5x 2025A adjusted EBITDA**.
+**Synergy execution**  
+The modeled **$61m–$110m synergy range is inferred**, not explicit company guidance.
 
-The transaction therefore depends on ABB generating sufficient strategic and financial benefits to justify the entry valuation.
+**Financing**  
+Higher borrowing costs reduce accretion, although the transaction remains accretive across the modeled range.
 
-### Synergy Execution
-
-The model's **$61m–$110m synergy range is inferred**, not explicit company guidance.
-
-Actual realised synergies may differ materially from the modeled range.
-
-### Financing
-
-Higher borrowing costs would reduce EPS accretion, although the modeled transaction remains accretive across the borrowing-rate sensitivity tested.
-
-### Closing & Integration
-
-Court, regulatory and other closing conditions remain relevant until completion. Post-close integration and execution may also affect the economic outcome.
+**Execution**  
+Closing conditions, integration and post-close execution may affect the realised economics of the transaction.
 
 ---
 
 ## Model Structure
 
-The Excel model contains six schedules:
+The Excel workbook contains:
 
 1. **Transaction Summary** — deal terms, valuation, rationale and risks
-2. **ABB Financials** — acquirer standalone financials and forecasts
-3. **Rotork Financials** — target standalone financials and forecasts
-4. **Transaction & Financing** — purchase price, EV bridge, transaction multiples, synergies and sources & uses
+2. **ABB Financials** — acquirer standalone financials
+3. **Rotork Financials** — target standalone financials
+4. **Transaction & Financing** — purchase price, EV bridge, sources & uses and synergies
 5. **Accretion-Dilution** — pro forma EPS analysis
-6. **Sensitivity & Sources** — EPS sensitivity and source documentation
+6. **Sensitivity & Sources** — sensitivity analysis and source documentation
 
 ---
 
 ## Key Takeaways
 
-The transaction implies approximately **$5.50bn of enterprise value** and values Rotork at approximately **19.5x 2025A adjusted EBITDA**, reflecting a significant acquisition premium.
+- ABB's offer implies approximately **$5.50bn of enterprise value**
+- Rotork is valued at approximately **19.5x 2025A adjusted EBITDA**
+- the modeled transaction is **2.4% accretive before synergies**
+- a 15.0x post-synergy multiple implies approximately **$84m of EBITDA synergies**
+- modeled FY28E accretion rises to approximately **3.6%** in the base synergy case
 
-Despite the high entry valuation, the modeled transaction is accretive to ABB EPS before synergies because Rotork's earnings contribution exceeds the after-tax financing drag.
-
-A 15.0x post-synergy EV / EBITDA interpretation implies approximately **$84m of EBITDA synergies**, increasing modeled FY28E EPS accretion from approximately **2.4% pre-synergy to 3.6% post-synergy**.
-
-The analysis therefore highlights the interaction between **purchase price, financing structure, target earnings and synergy realisation** in determining acquisition economics.
+The analysis highlights how **purchase price, financing structure, target earnings and synergy realisation** interact to determine acquisition economics.
 
 ---
 
 ## Limitations
 
-This model is intended as a transaction-analysis exercise rather than a full purchase-accounting model.
+The model is a transaction-analysis exercise rather than a full purchase-accounting model.
 
-It does not include:
+It excludes:
 
-- purchase-price allocation or incremental amortisation;
-- integration and restructuring costs;
-- dividend effects;
-- changes in diluted share count; or
-- detailed post-close accounting adjustments.
+- purchase-price allocation and incremental amortisation
+- integration and restructuring costs
+- detailed tax and purchase-accounting adjustments
+- dividend effects
+- changes in diluted share count
 
-FY27E and FY28E standalone forecasts use analyst growth assumptions and are not company guidance.
+FY27E and FY28E standalone forecasts use analyst assumptions and are not company guidance.
 
 ---
 
 ## Sources
 
-The workbook contains a full source log covering:
+The workbook includes a full source log covering ABB and Rotork company disclosures, transaction documents, financial results, Robotics disposal proceeds and transaction-date FX.
 
-- ABB's acquisition announcement;
-- the Rotork Scheme Document;
-- transaction meeting results;
-- Rotork H1 2026 and FY2025 results;
-- ABB Q2 2026 and FY2025 financial reporting;
-- Robotics disposal proceeds; and
-- transaction-date GBP/USD FX.
-
-Analyst assumptions are explicitly identified separately from company-disclosed information.
-
----
-
-## Disclaimer
-
-This project is independent analysis prepared for educational and portfolio purposes using publicly available information. It does not constitute investment advice.
+Company-disclosed information and analyst assumptions are identified separately.

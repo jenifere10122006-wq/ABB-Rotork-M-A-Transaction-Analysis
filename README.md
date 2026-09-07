@@ -49,15 +49,15 @@ I first translated the announced offer terms into an implied equity purchase pri
 
 The model uses:
 
-**Equity Purchase Price**
-
-\[
+$$
+\text{Equity Purchase Price}
+=
 \text{Offer Price per Share}
 \times
 \text{Fully Diluted Shares}
-\]
+$$
 
-Using 503p per share and approximately 822.3 million diluted shares gives an equity purchase price of approximately **£4.14bn**, or **$5.57bn** using the transaction-date GBP/USD exchange rate.
+Using 503p per share and approximately 822.3 million diluted shares gives an equity purchase price of approximately **£4.14bn**, or **$5.57bn** at the transaction-date GBP/USD exchange rate.
 
 I then bridge equity value to enterprise value by adjusting for Rotork's cash, debt, lease liabilities and pension deficit.
 
@@ -108,6 +108,24 @@ The financing schedule also models:
 
 Sources and uses reconcile to zero.
 
+The simplified financing drag is:
+
+$$
+\text{After-Tax Financing Drag}
+=
+\left(
+\text{Incremental Debt}
+\times
+\text{Borrowing Rate}
++
+\text{Cash Used}
+\times
+\text{Foregone Yield}
+\right)
+\times
+(1-\text{Tax Rate})
+$$
+
 ---
 
 ## 4. Implied Synergy Analysis
@@ -116,24 +134,24 @@ ABB described the transaction using a post-synergy EV / EBITDA multiple in the "
 
 I therefore reverse-engineered the level of EBITDA synergies implied by different interpretations of a mid-teens post-synergy multiple.
 
-The methodology is:
+The post-synergy EBITDA implied by a given transaction multiple is:
 
-\[
+$$
 \text{Post-Synergy EBITDA}
 =
 \frac{\text{Transaction EV}}
 {\text{Post-Synergy EV / EBITDA}}
-\]
+$$
 
-and:
+Implied EBITDA synergies are then calculated as:
 
-\[
+$$
 \text{Implied EBITDA Synergy}
 =
 \text{Post-Synergy EBITDA}
 -
 \text{Standalone Rotork EBITDA}
-\]
+$$
 
 This produces:
 
@@ -151,28 +169,40 @@ These values are an analyst interpretation of ABB's transaction language rather 
 
 ## 5. EPS Accretion / Dilution
 
-I built a pro forma EPS bridge combining:
+I built a pro forma EPS bridge combining ABB's standalone earnings, Rotork's earnings contribution, financing drag and potential synergies.
 
-\[
+The simplified earnings bridge is:
+
+$$
+\text{Pro Forma Net Income}
+=
 \text{ABB Standalone Net Income}
-\]
-
-\[
 +
 \text{Rotork Net Income}
-\]
-
-\[
 +
 \text{After-Tax Synergies}
-\]
-
-\[
 -
 \text{After-Tax Financing Drag}
-\]
+$$
 
-to estimate the impact of the acquisition on ABB shareholders.
+Pro forma EPS is then:
+
+$$
+\text{Pro Forma EPS}
+=
+\frac{\text{Pro Forma Net Income}}
+{\text{ABB Diluted Shares}}
+$$
+
+EPS accretion is calculated as:
+
+$$
+\text{EPS Accretion}
+=
+\frac{\text{Pro Forma EPS}}
+{\text{ABB Standalone EPS}}
+-1
+$$
 
 ### FY27E Pro Forma / Run-Rate
 
